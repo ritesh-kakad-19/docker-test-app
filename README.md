@@ -199,7 +199,7 @@ docker-test-app/
 | `npm start` | Run the server with `node index.js` |
 | `npm test` | Placeholder — exits with an error until tests are added |
 
-## Known issues
+<!-- ## Known issues
 
 These are worth fixing before using the project as anything more than a demo:
 
@@ -212,4 +212,4 @@ These are worth fixing before using the project as anything more than a demo:
 
 ## License
 
-ISC — see `package.json`. Add a `LICENSE` file if you plan to distribute the project.
+ISC — see `package.json`. Add a `LICENSE` file if you plan to distribute the project. -->
