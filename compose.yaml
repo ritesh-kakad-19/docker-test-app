@@ -1,0 +1,41 @@
+services:
+
+  # Node.js application
+  app:
+    build: .
+    container_name: node-app
+    ports:
+    - 5000:5000
+    environment:
+      PORT: 5000
+      MONGO_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb:27017/mydatabase?authSource=admin
+    networks:
+      - mongo-network
+
+  # MongoDB database
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+    - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:?Set MONGO_ROOT_USERNAME in .env}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:?Set MONGO_ROOT_PASSWORD in .env}
+    networks:
+      - mongo-network
+  
+  # Mongo Express database management interface
+  mongo-express:
+    image: mongo-express
+    container_name: mongodb-exprress
+    ports:
+    - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME:?Set MONGO_ROOT_USERNAME in .env}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD:?Set MONGO_ROOT_PASSWORD in .env}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongo:27017/
+    networks:
+      - mongo-network
+
+networks:
+  mongo-network: 
